@@ -1,0 +1,38 @@
+<h3>Makaleler</h3>
+<hr>
+
+<div class="input-group mb-3" style="max-width: 400px;">
+  <input type="text" [(ngModel)]="searchText" name="searchInput" class="form-control" placeholder="Ara">
+  <div class="input-group-append">
+    <button [disabled]="!searchText" (click)="searchUrl()" class="btn btn-outline-danger" type="button">Ara</button>
+  </div>
+</div>
+<hr>
+
+
+
+
+<div *ngIf="loading" class="my-5">
+  <app-loading></app-loading>
+</div>
+
+
+
+
+
+
+<div *ngIf="articles.length > 0; else noArticle">
+
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let article of articles">
+      <a [routerLink]="['/article',article.id]" routerLinkActive="active">{{article.title}}</a>
+    </li>
+  </ul>
+</div>
+
+
+<ng-template #noArticle>
+  <div *ngIf="!loading && !searchStatus" class="alert alert-warning text-center">
+    <h3>Bu blogta henüz makale bulunmuyor!</h3>
+  </div>
+</ng-template>

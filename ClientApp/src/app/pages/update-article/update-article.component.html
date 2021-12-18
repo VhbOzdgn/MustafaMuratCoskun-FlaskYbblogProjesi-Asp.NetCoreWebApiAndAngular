@@ -1,0 +1,43 @@
+<div *ngIf="!notFound; else notFoundTemplate">
+
+  <h3>Makale Güncelle</h3>
+  <hr>
+
+  <div *ngIf="articleForm">
+    <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label>Başlık</label>
+        <input type="text" class="form-control" formControlName="title">
+        <span *ngIf="getControls.title.invalid && getControls.title.touched" class="text-danger">
+          {{myValidation.getValidationMessages(getControls.title,'Başlık')}}</span>
+      </div>
+
+      <div class="form-group">
+        <label>Makale İçeriği</label>
+        <ckeditor [editor]="Editor" formControlName="content" (ready)="onReady($event)"></ckeditor>
+        <span *ngIf="getControls.content.invalid && getControls.content.touched" class="text-danger">
+          {{myValidation.getValidationMessages(getControls.content,'İçerik')}}</span>
+      </div>
+
+
+      <button [disabled]="articleForm.invalid" class="btn btn-primary" type="submit" #submitButton>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span *ngIf="loading"> Kaydediliyor</span>
+        <span *ngIf="!loading">Güncelle</span>
+      </button>
+
+
+
+    </form>
+  </div>
+
+
+</div>
+
+
+
+
+<ng-template #notFoundTemplate>
+  <app-not-found></app-not-found>
+</ng-template>

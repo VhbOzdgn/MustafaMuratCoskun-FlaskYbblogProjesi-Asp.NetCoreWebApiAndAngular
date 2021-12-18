@@ -1,0 +1,24 @@
+<div *ngIf="loading" class="my-5">
+  <app-loading></app-loading>
+</div>
+
+
+<div *ngIf="article; else noArticle" class="mt-3">
+  <h4>{{article.title}}</h4>
+<hr>
+<strong>Yazar :</strong> {{article.author}}
+<hr>
+<strong>Tarih :</strong> {{article.createdDate | date:'short' }}
+<hr>
+<div [innerHtml]="article.content"></div>
+</div>
+
+
+
+
+
+<ng-template #noArticle>
+  <div *ngIf="!loading">
+    <app-not-found></app-not-found>
+  </div>
+</ng-template>
